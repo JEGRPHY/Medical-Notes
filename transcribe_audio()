@@ -1,0 +1,11 @@
+def transcribe_audio(audio_file_path):
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(audio_file_path) as source:
+        st.write("Transcribing audio...")
+        audio = recognizer.record(source)
+    try:
+        return recognizer.recognize_google(audio)
+    except sr.UnknownValueError:
+        return "Audio not understood"
+    except sr.RequestError as e:
+        return f"Error with the speech recognition service: {e}"
